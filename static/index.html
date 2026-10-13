@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clausler — Contract Risk Analyzer for Freelancers</title>
+  <meta name="description" content="Upload your freelance contract and get an instant risk report. Spot unfair clauses, understand your exposure, and negotiate from a position of knowledge.">
+  <meta name="theme-color" content="#00C16A">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300C16A' stroke-width='2.5'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><polyline points='14 2 14 8 20 8'/><path d='m9 15 2 2 4-4'/></svg>">
+
+  <!-- Inter + JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              DEFAULT: '#00C16A',
+              hover: '#00a85a',
+              soft: 'rgba(0, 193, 106, 0.12)',
+              border: 'rgba(0, 193, 106, 0.35)',
+              glow: 'rgba(0, 193, 106, 0.4)'
+            },
+            clausler: {
+              bg: '#091628',
+              surface: '#0f2338',
+              card: '#142a42',
+              cardBorder: 'rgba(255, 255, 255, 0.08)',
+              border: '#1a3550',
+              text: '#f8fafc',
+              muted: '#94afca',
+              dimmed: '#5f84a6'
+            }
+          },
+          fontFamily: {
+            sans: ['"Inter"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#091628] text-slate-100 font-sans antialiased min-h-screen selection:bg-primary selection:text-slate-950 bg-clausler-grid">
+
+  <!-- TOP CLAUSLER NAVBAR -->
+  <header class="border-b border-clausler-cardBorder bg-[#091628]/90 backdrop-blur-xl sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-all shadow-[0_0_12px_rgba(0,193,106,0.25)]">
+          <i data-lucide="shield-check" class="w-4.5 h-4.5 text-primary"></i>
+        </div>
+        <div class="flex items-baseline gap-1.5">
+          <span class="font-extrabold text-lg tracking-tight text-white">Clausler</span>
+          <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/15 text-primary border border-primary/30">Local AI</span>
+        </div>
+      </a>
+
+      <!-- Air-Gapped Trust Pill (Clausler Style) -->
+      <div class="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/60 text-xs font-medium text-slate-300">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+        </span>
+        <span class="text-slate-200">100% On-Device</span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-400">Zero Cloud Uploads</span>
+      </div>
+
+      <!-- Navigation & Action Links -->
+      <div class="flex items-center gap-3">
+        <a href="#studio" class="hidden sm:inline-block text-xs font-semibold text-slate-300 hover:text-white transition-colors">Risk Analyzer</a>
+        <a href="#templates" class="hidden sm:inline-block text-xs font-semibold text-slate-300 hover:text-white transition-colors">Templates</a>
+        <a href="#studio" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-slate-950 text-xs font-bold transition-all hover:bg-[#00d977] shadow-[0_0_15px_rgba(0,193,106,0.3)]">
+          <i data-lucide="upload" class="w-3.5 h-3.5 text-slate-950"></i>
+          <span>Analyze Contract</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- CLAUSLER HERO SECTION (Exact Headline & Subtitle + AI Background) -->
+  <section id="hero" class="relative pt-14 pb-20 border-b border-clausler-cardBorder overflow-hidden">
+    
+    <!-- AI-Generated Clausler Emerald Mesh Background -->
+    <div class="absolute inset-0 pointer-events-none z-0">
+      <img src="clausler_mesh_bg.jpg" alt="Clausler AI Background" class="w-full h-full object-cover object-center opacity-30 mix-blend-screen filter brightness-90">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#091628]/60 via-[#091628]/85 to-[#091628]"></div>
+    </div>
+
+    <!-- Glowing Emerald Radial Bloom -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 rounded-full blur-[120px] pointer-events-none animate-pulse-emerald"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      
+      <!-- Friendly Pre-Header Pill (Clausler Style) -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-primary/30 text-xs text-primary font-medium mb-6 shadow-[0_0_15px_rgba(0,193,106,0.15)]">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span>Contract Risk Analyzer for Freelancers & Creators</span>
+      </div>
+
+      <!-- Clausler Exact Main Headline -->
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto">
+        Upload your freelance contract & get an <br class="hidden sm:inline">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#4ade80] to-[#2dd4bf]">instant risk report.</span>
+      </h1>
+
+      <!-- Clausler Exact Subtitle -->
+      <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10">
+        Spot unfair clauses, understand your exposure, and negotiate from a position of knowledge. Air-gapped on-device AI — your client NDA is safe.
+      </p>
+
+      <!-- Clausler Quick Action Bar (Upload or Pick Template) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-12">
+        <a href="#studio" class="clausler-card p-5 text-left group border border-primary/40 bg-gradient-to-br from-primary/10 to-transparent hover:border-primary transition-all">
+          <div class="w-10 h-10 rounded-xl bg-primary text-slate-950 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,193,106,0.3)]">
+            <i data-lucide="scan-search" class="w-5 h-5"></i>
+          </div>
+          <div class="font-bold text-sm text-white mb-1 flex items-center gap-1.5">
+            <span>1. Scan Client Agreement</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-primary group-hover:translate-x-1 transition-transform"></i>
+          </div>
+          <div class="text-xs text-slate-400 leading-relaxed">Drop your PDF or paste text to detect unlimited liability, IP grabs, and payment traps.</div>
+        </a>
+
+        <a href="#templates" class="clausler-card p-5 text-left group hover:border-primary/50 transition-all">
+          <div class="w-10 h-10 rounded-xl bg-slate-800 text-primary border border-slate-700 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+            <i data-lucide="file-plus" class="w-5 h-5"></i>
+          </div>
+          <div class="font-bold text-sm text-white mb-1 flex items-center gap-1.5">
+            <span>2. Create Safe Contract</span>
+            <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-400 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+          <div class="text-xs text-slate-400 leading-relaxed">Pick a verified freelance template with Net-15 terms & balanced protections built in.</div>
+        </a>
+      </div>
+
+      <!-- Trust Metrics (Clausler Style) -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-left max-w-4xl mx-auto pt-8 border-t border-clausler-cardBorder">
+        <div class="flex items-start gap-3">
+          <i data-lucide="shield-alert" class="w-5 h-5 text-primary shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-xs font-bold text-white">Unfair Clause Detection</div>
+            <div class="text-[11px] text-slate-400">Flags liability & IP seizure</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <i data-lucide="lock" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-xs font-bold text-white">Air-Gapped Privacy</div>
+            <div class="text-[11px] text-slate-400">Zero cloud data transmission</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <i data-lucide="dollar-sign" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-xs font-bold text-white">Exposure Valuation</div>
+            <div class="text-[11px] text-slate-400">Calculates dollar legal risk</div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <i data-lucide="sparkles" class="w-5 h-5 text-teal-400 shrink-0 mt-0.5"></i>
+          <div>
+            <div class="text-xs font-bold text-white">Counter-Clauses</div>
+            <div class="text-[11px] text-slate-400">1-click fair legal wording</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLAUSLER MAIN RISK ANALYZER STUDIO -->
+  <section id="studio" class="py-14 max-w-7xl mx-auto px-4 sm:px-6">
+    
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
+          <i data-lucide="scan-line" class="w-3.5 h-3.5"></i>
+          <span>CONTRACT RISK ANALYZER</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Inspect Any Client Agreement</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1">Upload a PDF or choose a reference contract below to see risk detection in action.</p>
+      </div>
+
+      <!-- 1-Click Samples (Clausler Style) -->
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-xs font-semibold text-slate-400 mr-1">Load Sample:</span>
+        <button data-sample="predatory" class="sample-btn px-3 py-1.5 rounded-lg bg-red-950/60 hover:bg-red-900/80 text-red-300 text-xs font-semibold border border-red-800/60 transition-colors flex items-center gap-1.5">
+          <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-red-400"></i>
+          <span>Predatory MSA</span>
+        </button>
+        <button data-sample="nda" class="sample-btn px-3 py-1.5 rounded-lg bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 text-xs font-semibold border border-amber-800/60 transition-colors flex items-center gap-1.5">
+          <i data-lucide="file-warning" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Sneaky NDA</span>
+        </button>
+        <button data-sample="fair" class="sample-btn px-3 py-1.5 rounded-lg bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 text-xs font-semibold border border-emerald-800/60 transition-colors flex items-center gap-1.5">
+          <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Fair Contract</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- MAIN TWO-COLUMN STUDIO CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- LEFT COLUMN: DOCUMENT SOURCE & ANNOTATED VIEWER -->
+      <div class="lg:col-span-6 flex flex-col gap-4">
+        
+        <div class="clausler-card p-5">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="file-text" class="w-3.5 h-3.5 text-primary"></i>
+              <span>Contract Source</span>
+            </span>
+            <span id="charCount" class="text-xs text-slate-400 font-mono">0 words</span>
+          </div>
+
+          <!-- Clausler Drag and Drop Area -->
+          <div id="dropZone" class="border-2 border-dashed border-slate-700 hover:border-primary rounded-xl p-5 text-center transition-all bg-[#091628]/60 cursor-pointer group mb-3">
+            <input type="file" id="fileInput" accept=".pdf,.txt,.docx" class="hidden">
+            <div class="flex flex-col items-center justify-center gap-2">
+              <div class="w-10 h-10 rounded-full bg-slate-800 group-hover:bg-primary/20 text-slate-400 group-hover:text-primary transition-all flex items-center justify-center">
+                <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+              </div>
+              <p class="text-xs text-slate-300">
+                <span class="text-primary font-bold">Upload PDF or DOCX</span> or drag & drop file here
+              </p>
+              <span class="text-[11px] text-slate-500">PDFs parsed locally on your device with pypdf</span>
+            </div>
+          </div>
+
+          <!-- Textarea -->
+          <textarea id="contractInput" rows="12" placeholder="Paste your client agreement, NDA, or terms here to scan..." class="w-full bg-[#091628]/80 border border-slate-700/80 rounded-lg p-3.5 text-xs text-slate-200 font-mono leading-relaxed focus:outline-none focus:border-primary transition-colors resize-y"></textarea>
+
+          <div class="mt-4 flex items-center justify-between">
+            <span id="scanStatusText" class="text-xs text-slate-400 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-primary"></i>
+              <span>Air-gapped: 0 external requests</span>
+            </span>
+            <button id="btnScan" class="px-5 py-2.5 rounded-lg btn-clausler-primary text-xs font-bold transition-all flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-slate-950"></i>
+              <span>Run Risk Audit</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Document Viewer with Highlights (Appears after scan) -->
+        <div id="docViewerContainer" class="clausler-card p-5 hidden">
+          <div class="flex items-center justify-between pb-3 mb-3 border-b border-clausler-cardBorder">
+            <span class="text-xs font-bold text-white flex items-center gap-1.5">
+              <i data-lucide="highlighter" class="w-3.5 h-3.5 text-primary"></i>
+              <span>Annotated Risk View</span>
+            </span>
+            <div class="flex items-center gap-3 text-xs">
+              <span class="text-red-400 font-medium flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span>Predatory</span>
+              <span class="text-amber-400 font-medium flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span>Warning</span>
+              <span class="text-emerald-400 font-medium flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span>Safe</span>
+            </div>
+          </div>
+
+          <div id="annotatedText" class="text-xs text-slate-300 font-mono leading-relaxed max-h-[460px] overflow-y-auto pr-2 space-y-2.5 whitespace-pre-wrap select-text">
+            <!-- Populated via JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: RISK REPORT & COUNTER-CLAUSES -->
+      <div class="lg:col-span-6 flex flex-col gap-4">
+        
+        <!-- Score Radar & Summary Banner (Clausler Style) -->
+        <div id="riskRadarCard" class="clausler-card p-5 border border-primary/20">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-4">
+              <div class="relative w-18 h-18 flex items-center justify-center shrink-0">
+                <svg class="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
+                  <path class="text-slate-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  <path id="scoreCircle" class="text-red-500 transition-all duration-1000 ease-out" stroke-dasharray="8, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                </svg>
+                <div class="absolute flex flex-col items-center justify-center">
+                  <span id="scoreValue" class="text-lg font-extrabold font-mono text-white">8</span>
+                  <span class="text-[9px] font-mono text-slate-400 -mt-1">/ 100</span>
+                </div>
+              </div>
+
+              <div>
+                <span id="riskVerdictBadge" class="inline-block px-2.5 py-0.5 rounded-full bg-red-950 text-red-300 border border-red-800 text-[11px] font-bold uppercase tracking-wider mb-1">
+                  High Risk Agreement
+                </span>
+                <h3 class="text-sm font-bold text-white">Contract Safety Rating</h3>
+                <p id="riskSummaryText" class="text-xs text-slate-300 mt-0.5 leading-snug">
+                  Severe financial, liability, and IP traps found. Do not sign without requesting redlines.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex sm:flex-col justify-between sm:justify-center gap-2 pt-3 sm:pt-0 border-t sm:border-t-0 sm:border-l border-slate-700/80 sm:pl-4 text-left shrink-0">
+              <div>
+                <div class="text-[10px] font-bold uppercase text-slate-400">Exposure Valuation</div>
+                <div id="statExposure" class="text-base font-extrabold font-mono text-primary">$176,000</div>
+              </div>
+              <div>
+                <div class="text-[10px] font-bold uppercase text-slate-400">Flagged Pitfalls</div>
+                <div id="statTraps" class="text-sm font-bold text-red-400">6 Red Flags</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Navigation Tabs (Clausler Style) -->
+        <div class="flex items-center border-b border-clausler-cardBorder gap-2">
+          <button id="tabFindings" class="tab-btn pb-2 text-xs font-bold text-primary border-b-2 border-primary flex items-center gap-1.5">
+            <i data-lucide="list-checks" class="w-3.5 h-3.5"></i>
+            <span>Risk Breakdown (<span id="findingsCount">6</span>)</span>
+          </button>
+          <button id="tabEmail" class="tab-btn pb-2 text-xs font-semibold text-slate-400 hover:text-white border-b-2 border-transparent flex items-center gap-1.5">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+            <span>Negotiation Email</span>
+          </button>
+          <button id="tabDiff" class="tab-btn pb-2 text-xs font-semibold text-slate-400 hover:text-white border-b-2 border-transparent flex items-center gap-1.5">
+            <i data-lucide="git-compare" class="w-3.5 h-3.5"></i>
+            <span>Redline Diff</span>
+          </button>
+        </div>
+
+        <!-- TAB CONTENT 1: CLAUSE CARDS -->
+        <div id="viewFindings" class="flex flex-col gap-3">
+          <div id="clausesList" class="flex flex-col gap-3 max-h-[580px] overflow-y-auto pr-1">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- TAB CONTENT 2: CLIENT NEGOTIATION EMAIL -->
+        <div id="viewEmail" class="hidden clausler-card p-5 flex-col gap-3">
+          <div class="flex items-center justify-between pb-2 border-b border-clausler-cardBorder">
+            <div>
+              <span class="text-xs font-bold text-white">Client Pushback Email</span>
+              <p class="text-[11px] text-slate-400">Diplomatic language to request revisions without risking the project.</p>
+            </div>
+            <button id="btnCopyEmail" class="px-3 py-1.5 rounded-lg btn-clausler-secondary text-xs flex items-center gap-1.5">
+              <i data-lucide="copy" class="w-3 h-3 text-primary"></i>
+              <span id="copyEmailText">Copy Email</span>
+            </button>
+          </div>
+          <textarea id="emailDraftArea" rows="11" class="w-full bg-[#091628] border border-slate-700 rounded-lg p-3.5 text-xs text-slate-200 font-sans leading-relaxed focus:outline-none focus:border-primary resize-y"></textarea>
+        </div>
+
+        <!-- TAB CONTENT 3: SIDE-BY-SIDE DIFF VIEW -->
+        <div id="viewDiff" class="hidden clausler-card p-5 flex-col gap-3">
+          <div class="flex items-center justify-between pb-2 border-b border-clausler-cardBorder">
+            <span class="text-xs font-bold text-white">Original vs. Protective Language</span>
+            <span class="text-[10px] font-bold text-primary bg-primary/10 border border-primary/30 px-2.5 py-0.5 rounded-full">
+              +72 Safety Points
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <div class="text-[10px] font-bold uppercase text-red-400 mb-1">What the Client Sent:</div>
+              <div id="diffOriginal" class="p-3 rounded-lg bg-red-950/40 border border-red-900/60 text-red-200 font-mono text-xs leading-relaxed max-h-64 overflow-y-auto"></div>
+            </div>
+            <div>
+              <div class="text-[10px] font-bold uppercase text-primary mb-1">What You Should Sign:</div>
+              <div id="diffRevised" class="p-3 rounded-lg bg-emerald-950/40 border border-primary/40 text-emerald-200 font-mono text-xs leading-relaxed max-h-64 overflow-y-auto"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Export Bar -->
+        <div class="p-3.5 rounded-xl clausler-card flex items-center justify-between">
+          <span class="text-xs font-semibold text-slate-400">Export Risk Report:</span>
+          <div class="flex items-center gap-2">
+            <button id="btnExportMarkdown" class="px-3 py-1.5 rounded-lg btn-clausler-secondary text-xs">
+              Markdown Report
+            </button>
+            <button id="btnPrintReport" class="px-3 py-1.5 rounded-lg btn-clausler-secondary text-xs">
+              Print / PDF
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLAUSLER TEMPLATE LIBRARY -->
+  <section id="templates" class="py-14 border-t border-clausler-cardBorder bg-[#091628]/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+        <div>
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
+            <i data-lucide="library" class="w-3.5 h-3.5"></i>
+            <span>VETTED TEMPLATE LIBRARY</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Create a Pre-Protected Contract</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">Start from pre-vetted legal templates designed for independent freelancers.</p>
+        </div>
+      </div>
+
+      <!-- Template Selector Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        
+        <div onclick="selectTemplate('freelance-sow')" class="template-card clausler-card p-5 cursor-pointer border-2 border-primary bg-primary/10">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary text-slate-950">Recommended</span>
+            <i data-lucide="check" class="w-4 h-4 text-primary"></i>
+          </div>
+          <h3 class="font-bold text-sm text-white mb-1.5">Freelance SOW & Agreement</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">Protects with Net-15 terms, capped liability, 2 revision rounds, and portfolio rights.</p>
+          <span class="text-[11px] font-semibold text-primary flex items-center gap-1">Customize details →</span>
+        </div>
+
+        <div onclick="selectTemplate('mutual-nda')" class="template-card clausler-card p-5 cursor-pointer hover:border-primary/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">Standard</span>
+          </div>
+          <h3 class="font-bold text-sm text-white mb-1.5">Mutual Non-Disclosure (NDA)</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">2-way protection without perpetual secrecy traps or broad IP seizure.</p>
+          <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">Customize details →</span>
+        </div>
+
+        <div onclick="selectTemplate('agency-subcontractor')" class="template-card clausler-card p-5 cursor-pointer hover:border-primary/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">Agency</span>
+          </div>
+          <h3 class="font-bold text-sm text-white mb-1.5">Subcontractor Agreement</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">For agencies hiring independent help with guaranteed pay milestones.</p>
+          <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">Customize details →</span>
+        </div>
+
+        <div onclick="selectTemplate('saas-terms')" class="template-card clausler-card p-5 cursor-pointer hover:border-primary/50 transition-all">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">Software</span>
+          </div>
+          <h3 class="font-bold text-sm text-white mb-1.5">SaaS Customer Terms</h3>
+          <p class="text-xs text-slate-400 mb-3 leading-relaxed">Lightweight software terms covering uptime, data privacy, and liability caps.</p>
+          <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1">Customize details →</span>
+        </div>
+
+      </div>
+
+      <!-- Interactive Contract Builder Panel -->
+      <div id="templateBuilder" class="clausler-card p-6 border border-slate-700">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 mb-4 border-b border-clausler-cardBorder gap-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-primary font-mono">CUSTOMIZE CONTRACT DETAILS</span>
+            <h3 id="builderTitle" class="text-lg font-bold text-white">Customizing: Freelance Agreement & SOW</h3>
+          </div>
+          <button id="btnGenerateTemplate" class="px-5 py-2.5 rounded-lg btn-clausler-primary text-xs font-bold transition-all flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-slate-950"></i>
+            <span>Assemble & Audit Draft</span>
+          </button>
+        </div>
+
+        <div id="templateFormFields" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+          <!-- Dynamically injected fields based on selected template -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLAUSLER AI FEATURE SHOWCASE WITH GENERATED VISUALS -->
+  <section class="py-16 border-t border-clausler-cardBorder bg-[#050c18]/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <div class="inline-flex items-center gap-1.5 text-xs font-bold text-primary uppercase tracking-wider mb-2">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-primary"></i>
+          <span>ON-DEVICE AI INTELLIGENCE</span>
+        </div>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Built for Total Contract Visibility</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1.5 max-w-2xl mx-auto">See how local neural models inspect legal documents in real time without sending bytes to external clouds.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        
+        <!-- Feature Card 1: Telemetry & Radar Audit Visual -->
+        <div class="clausler-card overflow-hidden border border-slate-700/80 group hover:border-primary/60 transition-all">
+          <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-950">
+            <img src="feature_instant_audit.jpg" alt="Instant Contract Risk Telemetry" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f2338] via-transparent to-transparent"></div>
+            <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-900/90 border border-primary/40 text-primary text-[11px] font-bold flex items-center gap-1.5 backdrop-blur-md">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+              <span>Local Risk Telemetry</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white mb-2">Instant Threat Heatmap & Dollar Exposure</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Our air-gapped engine calculates total liability exposure across 5 legal dimensions: indemnity, payment dispute, intellectual property ownership, scope creep, and reputation clauses.
+            </p>
+            <div class="flex items-center gap-4 text-xs font-semibold text-primary">
+              <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 0-100 Safety Score</span>
+              <span class="flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Real-time highlights</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Card 2: Air-Gapped Vault Security Visual -->
+        <div class="clausler-card overflow-hidden border border-slate-700/80 group hover:border-primary/60 transition-all">
+          <div class="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-950">
+            <img src="feature_airgap_vault.jpg" alt="Air-Gapped Client NDA Protection" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0f2338] via-transparent to-transparent"></div>
+            <div class="absolute top-4 left-4 px-3 py-1 rounded-full bg-slate-900/90 border border-emerald-400/40 text-emerald-400 text-[11px] font-bold flex items-center gap-1.5 backdrop-blur-md">
+              <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>100% Air-Gapped Safe Harbor</span>
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-white mb-2">Zero Client NDA Leaks to Third-Party Clouds</h3>
+            <p class="text-xs text-slate-300 leading-relaxed mb-4">
+              Traditional online contract tools upload confidential enterprise agreements to cloud servers. RedlineLocal executes strictly on your laptop CPU/GPU so you never violate non-disclosure agreements.
+            </p>
+            <div class="flex items-center gap-4 text-xs font-semibold text-emerald-400">
+              <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Airplane Mode ready</span>
+              <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> $0 API Token Costs</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLAUSLER 3-STEP WORKFLOW SHOWCASE -->
+  <section class="py-16 border-t border-clausler-cardBorder bg-[#091628]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <div class="text-center mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white">How Clausler Works in 3 Quick Steps</h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1.5">Empowering freelancers to sign with complete peace of mind.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="clausler-card p-6 border border-slate-800 hover:border-primary/40 transition-all">
+          <div class="w-9 h-9 rounded-xl bg-primary/10 border border-primary/30 text-primary font-extrabold flex items-center justify-center text-xs mb-4">01</div>
+          <h4 class="font-bold text-sm text-white mb-1.5">Upload Agreement</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Drop in any client PDF, SOW, or NDA. Text is extracted directly inside your local environment.</p>
+        </div>
+
+        <div class="clausler-card p-6 border border-slate-800 hover:border-primary/40 transition-all">
+          <div class="w-9 h-9 rounded-xl bg-primary/10 border border-primary/30 text-primary font-extrabold flex items-center justify-center text-xs mb-4">02</div>
+          <h4 class="font-bold text-sm text-white mb-1.5">Instant Risk Report</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Automated scoring identifies predatory terms, exposes dollar liabilities, and pinpoints unfair conditions.</p>
+        </div>
+
+        <div class="clausler-card p-6 border border-slate-800 hover:border-primary/40 transition-all">
+          <div class="w-9 h-9 rounded-xl bg-primary/10 border border-primary/30 text-primary font-extrabold flex items-center justify-center text-xs mb-4">03</div>
+          <h4 class="font-bold text-sm text-white mb-1.5">Negotiate & Counter</h4>
+          <p class="text-xs text-slate-400 leading-relaxed">Generate 1-click counter-clauses and polite client pushback emails to negotiate safely before signing.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLAUSLER FOOTER -->
+  <footer class="border-t border-clausler-cardBorder py-8 bg-[#050c18] text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-white">Clausler</span>
+        <span>•</span>
+        <span>Contract Risk Analyzer for Freelancers</span>
+        <span>•</span>
+        <span class="text-primary font-semibold">100% Air-Gapped Local AI</span>
+      </div>
+      <div>
+        <span>Built for Open-Source AI Hackathon (Side Hustle Theme)</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

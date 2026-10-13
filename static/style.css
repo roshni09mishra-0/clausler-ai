@@ -1,0 +1,180 @@
+/* Clausler UI System - Exact Dark Midnight Theme + Vibrant Emerald (#00C16A) & Inter Typography */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Clausler Emerald & Midnight Palette */
+  --color-primary: #00c16a;
+  --color-primary-hover: #00a85a;
+  --color-primary-soft: rgba(0, 193, 106, 0.12);
+  --color-primary-border: rgba(0, 193, 106, 0.35);
+
+  --color-bg-page: #091628;
+  --color-bg-surface: #0f2338;
+  --color-bg-card: #142a42;
+  --color-border: #1e3a58;
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+
+  --color-text-main: #f8fafc;
+  --color-text-muted: #94afca;
+  --color-text-light: #5f84a6;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  letter-spacing: -0.015em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Clausler Subtle Grid Mesh Background */
+.bg-clausler-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* AI Glow and Floating Keyframes */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(8px) rotate(-0.5deg); }
+}
+
+@keyframes pulseEmerald {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-float {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 7s ease-in-out infinite;
+}
+
+.animate-pulse-emerald {
+  animation: pulseEmerald 5s ease-in-out infinite;
+}
+
+/* Clausler Midnight Glass Card */
+.clausler-card {
+  background: rgba(15, 35, 56, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.clausler-card:hover {
+  border-color: rgba(0, 193, 106, 0.35);
+  box-shadow: 0 12px 36px 0 rgba(0, 193, 106, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Clausler Button Gradient */
+.btn-clausler-primary {
+  background-color: #00c16a;
+  color: #050c18;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 20px rgba(0, 193, 106, 0.25);
+}
+.btn-clausler-primary:hover {
+  background-color: #00d977;
+  box-shadow: 0 0 28px rgba(0, 193, 106, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Clausler Secondary Button */
+.btn-clausler-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.btn-clausler-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Clausler Badge Pills */
+.clausler-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Clausler Document Highlighting Markers */
+mark.clause-highlight {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+  font-weight: 500;
+}
+
+mark.clause-critical {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-bottom: 2px solid #ef4444;
+}
+mark.clause-critical:hover, mark.clause-critical.active {
+  background-color: rgba(239, 68, 68, 0.35);
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+}
+
+mark.clause-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  border-bottom: 2px solid #f59e0b;
+}
+mark.clause-warning:hover, mark.clause-warning.active {
+  background-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.4);
+}
+
+mark.clause-safe {
+  background-color: rgba(0, 193, 106, 0.2);
+  color: #86efac;
+  border-bottom: 2px solid #00c16a;
+}
+mark.clause-safe:hover, mark.clause-safe.active {
+  background-color: rgba(0, 193, 106, 0.35);
+}
+
+/* Scrollbar customization for dark sleek theme */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(9, 22, 40, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 193, 106, 0.5);
+}
