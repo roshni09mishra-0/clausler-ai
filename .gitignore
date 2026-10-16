@@ -5,3 +5,5 @@ cloudflared.exe
 .venv/
 venv/
 *.log
+node_modules/
+.vercel
