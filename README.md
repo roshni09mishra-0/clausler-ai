@@ -1,7 +1,8 @@
-# 🛡️ RedlineLocal — The Air-Gapped Contracts OS for Freelancers
+# 🛡️ Clausler AI — Automated Contract Analysis for Risk Scoring
 
-> **Theme: Side Hustle | Open-Source AI Hackathon Entry**  
-> Built with open-source AI at its core. Runs 100% on your laptop with **0 outbound network packets**. Zero cloud leaks. Zero recurring token fees.
+> **Live Deployment:** [https://clausler-ai.vercel.app](https://clausler-ai.vercel.app)  
+> **Theme:** Side Hustle | Open-Source AI Hackathon Entry  
+> **Architecture:** 100% on-device / air-gapped legal intelligence engine. Zero cloud leaks, zero recurring token fees. Designed with Inferensys-grade editorial UI standards.
 
 ---
 
