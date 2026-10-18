@@ -35,14 +35,14 @@ function selectTemplate(templateId) {
   
   // Highlight active card
   document.querySelectorAll(".template-card").forEach(c => {
-    c.classList.remove("border-2", "border-primary", "bg-primary/10");
-    c.classList.add("border", "border-slate-800");
+    c.classList.remove("ring-2", "ring-[#FF5A1F]", "bg-[#EEECE6]");
+    c.classList.add("border-black/10");
   });
   
   const activeCard = event.currentTarget;
   if (activeCard) {
-    activeCard.classList.remove("border", "border-slate-800");
-    activeCard.classList.add("border-2", "border-primary", "bg-primary/10");
+    activeCard.classList.remove("border-black/10");
+    activeCard.classList.add("ring-2", "ring-[#FF5A1F]", "bg-[#EEECE6]");
   }
 
   renderTemplateFields(templateId);
@@ -61,8 +61,8 @@ function renderTemplateFields(templateId) {
     const fieldDiv = document.createElement("div");
     fieldDiv.className = "flex flex-col gap-1.5";
     fieldDiv.innerHTML = `
-      <label class="text-xs font-semibold text-[#231b14]">${escapeHtml(v.label)}</label>
-      <input type="text" id="field-${v.id}" value="${escapeHtml(v.default)}" class="w-full bg-[#ffffff] border border-[#e6dcce] rounded-lg p-2.5 text-xs text-[#231b14] font-medium focus:outline-none focus:border-[#c28854] transition-colors">
+      <label class="text-xs font-semibold text-[#111111] font-mono">${escapeHtml(v.label)}</label>
+      <input type="text" id="field-${v.id}" value="${escapeHtml(v.default)}" class="w-full bg-[#FAF9F6] border border-black/10 rounded-[4px] p-2.5 text-xs text-[#111111] font-medium focus:outline-none focus:border-[#111111] transition-colors">
     `;
     container.appendChild(fieldDiv);
   });
