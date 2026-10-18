@@ -1,0 +1,256 @@
+/* ==========================================================================
+   INFERENSYS DESIGN SYSTEM & THEME
+   Automated Contract Analysis for Risk Scoring
+   Fonts: Albert Sans, Google Sans Flex, IBM Plex Mono
+   Palette: #FFFFFF canvas, #F5F4F0 stone cards, #111111 primary text,
+            Signature Tri-Bar Accents: #FFB020 (Gold), #FF5A1F (Flame), #2F6BFF (Cobalt)
+   Zero Green Constraint: All safe/compliant tags styled in Cobalt Blue / Slate
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --font-sans: 'Albert Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Inferensys Core Colors */
+  --color-canvas: #ffffff;
+  --color-surface: #F5F4F0;
+  --color-surface-hover: #EEECE6;
+  --color-surface-muted: #FAF9F6;
+  --color-dark: #111111;
+  --color-dark-hero: #0B0D12;
+
+  --color-text-primary: #111111;
+  --color-text-secondary: rgba(0, 0, 0, 0.70);
+  --color-text-tertiary: rgba(0, 0, 0, 0.55);
+  --color-text-muted: rgba(0, 0, 0, 0.40);
+
+  --color-border: rgba(0, 0, 0, 0.10);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+
+  /* Inferensys Brand Accents */
+  --brand-gold: #FFB020;
+  --brand-flame: #FF5A1F;
+  --brand-cobalt: #2F6BFF;
+
+  /* Risk & Status System (Zero Green) */
+  --risk-critical-bg: #FEEBE5;
+  --risk-critical-border: #FF5A1F;
+  --risk-critical-text: #C83E0A;
+
+  --risk-warning-bg: #FFF6E5;
+  --risk-warning-border: #FFB020;
+  --risk-warning-text: #9E6500;
+
+  --risk-safe-bg: #EDF3FF;
+  --risk-safe-border: #2F6BFF;
+  --risk-safe-text: #174EC4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Headings with Inferensys Tight Letter-Spacing */
+.font-display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.0;
+}
+
+.hero-heading {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.95;
+}
+
+.section-heading {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+/* Inferensys Architectural Cards */
+.inferensys-card {
+  background-color: var(--color-surface);
+  border-radius: 6px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  border: 1px solid transparent;
+}
+.inferensys-card:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.inferensys-card-white {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* Inferensys Button Styles */
+.btn-inferensys-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-primary:hover {
+  background-color: rgba(17, 17, 17, 0.88);
+}
+
+.btn-inferensys-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  color: var(--color-dark);
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-white:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.btn-inferensys-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--color-dark);
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-secondary:hover {
+  background-color: var(--color-surface);
+}
+
+/* Document Highlighting Markers - Inferensys Architectural Palette */
+mark.clause-highlight {
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 3px;
+  transition: all 0.15s ease-in-out;
+  font-weight: 500;
+}
+
+mark.clause-critical {
+  background-color: var(--risk-critical-bg);
+  color: var(--risk-critical-text);
+  border-bottom: 2px solid var(--risk-critical-border);
+}
+mark.clause-critical:hover, mark.clause-critical.active {
+  background-color: #FED7CE;
+  box-shadow: 0 0 0 2px rgba(255, 90, 31, 0.25);
+}
+
+mark.clause-warning {
+  background-color: var(--risk-warning-bg);
+  color: var(--risk-warning-text);
+  border-bottom: 2px solid var(--risk-warning-border);
+}
+mark.clause-warning:hover, mark.clause-warning.active {
+  background-color: #FFE6BA;
+  box-shadow: 0 0 0 2px rgba(255, 176, 32, 0.25);
+}
+
+mark.clause-safe {
+  background-color: var(--risk-safe-bg);
+  color: var(--risk-safe-text);
+  border-bottom: 2px solid var(--risk-safe-border);
+}
+mark.clause-safe:hover, mark.clause-safe.active {
+  background-color: #DDE8FF;
+  box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.25);
+}
+
+/* 3x3 Risk Matrix Cell */
+.risk-matrix-cell {
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.risk-matrix-cell:hover {
+  transform: scale(1.05);
+}
+
+/* Accordion Animation */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease-out;
+}
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+.accordion-inner {
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F4F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D1C8;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #111111;
+}
+
+/* Marquee for Partners / Tools */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 35s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
