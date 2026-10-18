@@ -61,8 +61,8 @@ function renderTemplateFields(templateId) {
     const fieldDiv = document.createElement("div");
     fieldDiv.className = "flex flex-col gap-1.5";
     fieldDiv.innerHTML = `
-      <label class="text-xs font-semibold text-slate-300">${escapeHtml(v.label)}</label>
-      <input type="text" id="field-${v.id}" value="${escapeHtml(v.default)}" class="w-full bg-[#091628] border border-slate-700 rounded-lg p-2.5 text-xs text-white font-medium focus:outline-none focus:border-primary transition-colors">
+      <label class="text-xs font-semibold text-[#231b14]">${escapeHtml(v.label)}</label>
+      <input type="text" id="field-${v.id}" value="${escapeHtml(v.default)}" class="w-full bg-[#ffffff] border border-[#e6dcce] rounded-lg p-2.5 text-xs text-[#231b14] font-medium focus:outline-none focus:border-[#c28854] transition-colors">
     `;
     container.appendChild(fieldDiv);
   });
@@ -311,16 +311,16 @@ function updateScoreRadar(score, verdict, summary, traps, warnings, safe, exposu
   scoreCircle.setAttribute("stroke-dasharray", `${score}, 100`);
 
   if (score < 45) {
-    scoreCircle.setAttribute("class", "text-red-500 transition-all duration-1000 ease-out");
-    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-full bg-red-950 text-red-300 border border-red-800 text-[11px] font-bold uppercase tracking-wider mb-1";
+    scoreCircle.setAttribute("class", "text-[#FF5A1F] transition-all duration-1000 ease-out");
+    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-[3px] bg-[#FEEBE5] text-[#C83E0A] border border-[#FF5A1F]/30 text-[11px] font-bold uppercase tracking-wider mb-1";
     verdictBadge.textContent = verdict;
   } else if (score < 75) {
-    scoreCircle.setAttribute("class", "text-amber-500 transition-all duration-1000 ease-out");
-    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-800 text-[11px] font-bold uppercase tracking-wider mb-1";
+    scoreCircle.setAttribute("class", "text-[#FFB020] transition-all duration-1000 ease-out");
+    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-[3px] bg-[#FFF6E5] text-[#9E6500] border border-[#FFB020]/40 text-[11px] font-bold uppercase tracking-wider mb-1";
     verdictBadge.textContent = verdict;
   } else {
-    scoreCircle.setAttribute("class", "text-primary transition-all duration-1000 ease-out");
-    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-primary/50 text-[11px] font-bold uppercase tracking-wider mb-1";
+    scoreCircle.setAttribute("class", "text-[#2F6BFF] transition-all duration-1000 ease-out");
+    verdictBadge.className = "inline-block px-2.5 py-0.5 rounded-[3px] bg-[#EDF3FF] text-[#174EC4] border border-[#2F6BFF]/30 text-[11px] font-bold uppercase tracking-wider mb-1";
     verdictBadge.textContent = verdict;
   }
 }
@@ -328,7 +328,13 @@ function updateScoreRadar(score, verdict, summary, traps, warnings, safe, exposu
 function renderAnnotatedDocument(text, clauses) {
   const container = document.getElementById("docViewerContainer");
   const target = document.getElementById("annotatedText");
+  const metaBadge = document.getElementById("docMetaBadge");
   container.classList.remove("hidden");
+
+  const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0;
+  if (metaBadge) {
+    metaBadge.textContent = `${wordCount} words • ${clauses.length} items flagged`;
+  }
 
   let escaped = escapeHtml(text);
 
@@ -338,11 +344,11 @@ function renderAnnotatedDocument(text, clauses) {
       const severityClass = c.severity === "critical" ? "clause-critical" : (c.severity === "warning" ? "clause-warning" : "clause-safe");
       
       if (escaped.includes(snippet)) {
-        escaped = escaped.replace(snippet, `<mark id="mark-${c.id}" class="clause-highlight ${severityClass}" onclick="selectClause('${c.id}')">${snippet}</mark>`);
+        escaped = escaped.replace(snippet, `<mark id="mark-${c.id}" class="clause-highlight ${severityClass}" onclick="selectClause('${c.id}')" title="Click to view protective counter-terms">${snippet}</mark>`);
       } else {
         const words = snippet.split(" ").slice(0, 5).join(" ");
         if (words && escaped.includes(words)) {
-          escaped = escaped.replace(words, `<mark id="mark-${c.id}" class="clause-highlight ${severityClass}" onclick="selectClause('${c.id}')">${words} [...]</mark>`);
+          escaped = escaped.replace(words, `<mark id="mark-${c.id}" class="clause-highlight ${severityClass}" onclick="selectClause('${c.id}')" title="Click to view protective counter-terms">${words} [...]</mark>`);
         }
       }
     }
@@ -356,61 +362,61 @@ function renderClauseCards(clauses) {
   list.innerHTML = "";
 
   if (clauses.length === 0) {
-    list.innerHTML = `<div class="p-4 text-xs text-slate-400">No risky clauses identified in this document.</div>`;
+    list.innerHTML = `<div class="p-4 text-xs text-black/55 font-mono">No risky clauses identified in this document.</div>`;
     return;
   }
 
   clauses.forEach((c, index) => {
     const card = document.createElement("div");
     card.id = `card-${c.id}`;
-    card.className = "clausler-card p-4.5 cursor-pointer border border-slate-700/80 hover:border-primary/50 transition-all";
+    card.className = "inferensys-card p-5 cursor-pointer border border-black/10 hover:border-[#111111] transition-all";
     card.onclick = () => selectClause(c.id);
 
     const isCritical = c.severity === "critical";
-    const badgeColor = isCritical ? "bg-red-950/70 text-red-300 border-red-800" : (c.severity === "warning" ? "bg-amber-950/70 text-amber-300 border-amber-800" : "bg-emerald-950/70 text-emerald-300 border-primary/50");
+    const badgeColor = isCritical ? "bg-[#FEEBE5] text-[#C83E0A] border-[#FF5A1F]/30" : (c.severity === "warning" ? "bg-[#FFF6E5] text-[#9E6500] border-[#FFB020]/40" : "bg-[#EDF3FF] text-[#174EC4] border-[#2F6BFF]/30");
 
     card.innerHTML = `
-      <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-clausler-cardBorder">
+      <div class="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-black/10">
         <div class="flex items-center gap-1.5">
-          <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${badgeColor}">
+          <span class="text-[10px] font-bold uppercase px-2 py-0.5 rounded-[3px] border ${badgeColor} font-mono">
             ${c.type || "Contract Term"}
           </span>
-          <span class="text-[10px] text-slate-500">#${index + 1}</span>
+          <span class="text-[10px] text-black/45 font-mono">#${index + 1}</span>
         </div>
         ${c.financial_risk_estimate ? `
-          <span class="text-[10px] font-bold text-primary font-mono">${escapeHtml(c.financial_risk_estimate)}</span>
+          <span class="text-[10px] font-bold text-[#FF5A1F] font-mono">${escapeHtml(c.financial_risk_estimate)}</span>
         ` : ''}
       </div>
 
-      <div class="p-3 rounded-lg bg-[#091628] border border-slate-700/80 text-xs font-mono text-slate-300 mb-3 leading-relaxed">
+      <div class="p-3 rounded-[4px] bg-[#FAF9F6] border border-black/10 text-xs font-mono text-[#111111] mb-3 leading-relaxed">
         "${escapeHtml(c.original_text || '')}"
       </div>
 
       <div class="mb-3">
-        <div class="text-[10px] font-bold uppercase text-slate-400 mb-1">Plain-English Impact:</div>
-        <p class="text-xs text-slate-200 leading-relaxed font-sans">${escapeHtml(c.plain_english_verdict || '')}</p>
+        <div class="text-[10px] font-semibold uppercase text-black/55 mb-1 font-mono">Plain-English Impact:</div>
+        <p class="text-xs text-black/75 leading-relaxed font-sans">${escapeHtml(c.plain_english_verdict || '')}</p>
       </div>
 
       ${c.counter_clause ? `
-        <div class="pt-2.5 border-t border-clausler-cardBorder">
+        <div class="pt-2.5 border-t border-black/10">
           <div class="flex items-center justify-between mb-1.5">
-            <span class="text-[10px] font-bold uppercase text-primary flex items-center gap-1.5">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-primary"></i>
+            <span class="text-[10px] font-bold uppercase text-[#2F6BFF] flex items-center gap-1.5 font-mono">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-[#2F6BFF]"></i>
               <span>Protective Counter-Clause:</span>
             </span>
-            <button onclick="event.stopPropagation(); copyCounterClause('${c.id}', this)" class="text-[10px] font-semibold text-slate-300 hover:text-white px-2 py-0.5 rounded bg-slate-800 border border-slate-700 transition-colors">
+            <button onclick="event.stopPropagation(); copyCounterClause('${c.id}', this)" class="text-[10px] font-medium text-[#111111] hover:text-[#FF5A1F] px-2 py-0.5 rounded-[3px] bg-white border border-black/15 transition-colors">
               Copy
             </button>
           </div>
-          <div class="p-3 rounded-lg bg-emerald-950/30 border border-primary/30 text-emerald-200 text-xs font-mono leading-relaxed">
+          <div class="p-3 rounded-[4px] bg-[#EDF3FF] border border-[#2F6BFF]/30 text-[#174EC4] text-xs font-mono leading-relaxed">
             ${escapeHtml(c.counter_clause)}
           </div>
         </div>
       ` : ''}
 
       ${c.negotiation_tip ? `
-        <div class="mt-2.5 text-xs text-slate-400 leading-snug">
-          <strong class="text-white">Negotiation Tip:</strong> ${escapeHtml(c.negotiation_tip)}
+        <div class="mt-2.5 text-xs text-black/60 leading-snug">
+          <strong class="text-[#111111]">Negotiation Tip:</strong> ${escapeHtml(c.negotiation_tip)}
         </div>
       ` : ''}
     `;
@@ -422,10 +428,10 @@ function renderClauseCards(clauses) {
 }
 
 function selectClause(clauseId) {
-  document.querySelectorAll(".clausler-card").forEach(c => c.classList.remove("ring-2", "ring-primary"));
+  document.querySelectorAll(".inferensys-card").forEach(c => c.classList.remove("ring-2", "ring-[#111111]"));
   const card = document.getElementById(`card-${clauseId}`);
   if (card) {
-    card.classList.add("ring-2", "ring-primary");
+    card.classList.add("ring-2", "ring-[#111111]");
     card.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
@@ -475,9 +481,9 @@ function setupTabs() {
 
   function activateTab(activeTab, activeView) {
     [tabFindings, tabEmail, tabDiff].forEach(t => {
-      t.className = "tab-btn pb-2 text-xs font-semibold text-slate-400 hover:text-white border-b-2 border-transparent transition-colors flex items-center gap-1.5";
+      t.className = "tab-btn pb-2 text-xs font-medium text-black/55 hover:text-[#111111] border-b-2 border-transparent transition-colors flex items-center gap-1.5";
     });
-    activeTab.className = "tab-btn pb-2 text-xs font-bold text-primary border-b-2 border-primary transition-colors flex items-center gap-1.5";
+    activeTab.className = "tab-btn pb-2 text-xs font-semibold text-[#FF5A1F] border-b-2 border-[#FF5A1F] transition-colors flex items-center gap-1.5";
 
     [viewFindings, viewEmail, viewDiff].forEach(v => v.classList.add("hidden"));
     activeView.classList.remove("hidden");

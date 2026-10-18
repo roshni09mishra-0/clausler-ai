@@ -1,180 +1,256 @@
-/* Clausler UI System - Exact Dark Midnight Theme + Vibrant Emerald (#00C16A) & Inter Typography */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* ==========================================================================
+   INFERENSYS DESIGN SYSTEM & THEME
+   Automated Contract Analysis for Risk Scoring
+   Fonts: Albert Sans, Google Sans Flex, IBM Plex Mono
+   Palette: #FFFFFF canvas, #F5F4F0 stone cards, #111111 primary text,
+            Signature Tri-Bar Accents: #FFB020 (Gold), #FF5A1F (Flame), #2F6BFF (Cobalt)
+   Zero Green Constraint: All safe/compliant tags styled in Cobalt Blue / Slate
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Albert Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
 
-  /* Clausler Emerald & Midnight Palette */
-  --color-primary: #00c16a;
-  --color-primary-hover: #00a85a;
-  --color-primary-soft: rgba(0, 193, 106, 0.12);
-  --color-primary-border: rgba(0, 193, 106, 0.35);
+  /* Inferensys Core Colors */
+  --color-canvas: #ffffff;
+  --color-surface: #F5F4F0;
+  --color-surface-hover: #EEECE6;
+  --color-surface-muted: #FAF9F6;
+  --color-dark: #111111;
+  --color-dark-hero: #0B0D12;
 
-  --color-bg-page: #091628;
-  --color-bg-surface: #0f2338;
-  --color-bg-card: #142a42;
-  --color-border: #1e3a58;
-  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #111111;
+  --color-text-secondary: rgba(0, 0, 0, 0.70);
+  --color-text-tertiary: rgba(0, 0, 0, 0.55);
+  --color-text-muted: rgba(0, 0, 0, 0.40);
 
-  --color-text-main: #f8fafc;
-  --color-text-muted: #94afca;
-  --color-text-light: #5f84a6;
+  --color-border: rgba(0, 0, 0, 0.10);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+
+  /* Inferensys Brand Accents */
+  --brand-gold: #FFB020;
+  --brand-flame: #FF5A1F;
+  --brand-cobalt: #2F6BFF;
+
+  /* Risk & Status System (Zero Green) */
+  --risk-critical-bg: #FEEBE5;
+  --risk-critical-border: #FF5A1F;
+  --risk-critical-text: #C83E0A;
+
+  --risk-warning-bg: #FFF6E5;
+  --risk-warning-border: #FFB020;
+  --risk-warning-text: #9E6500;
+
+  --risk-safe-bg: #EDF3FF;
+  --risk-safe-border: #2F6BFF;
+  --risk-safe-text: #174EC4;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg-page);
-  color: var(--color-text-main);
-  letter-spacing: -0.015em;
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
-/* Clausler Subtle Grid Mesh Background */
-.bg-clausler-grid {
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 32px 32px;
+/* Headings with Inferensys Tight Letter-Spacing */
+.font-display {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.0;
 }
 
-/* AI Glow and Floating Keyframes */
-@keyframes floatSlow {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(0.5deg); }
+.hero-heading {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.95;
 }
 
-@keyframes floatReverse {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(8px) rotate(-0.5deg); }
+.section-heading {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
 }
 
-@keyframes pulseEmerald {
-  0%, 100% { opacity: 0.35; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.08); }
+/* Inferensys Architectural Cards */
+.inferensys-card {
+  background-color: var(--color-surface);
+  border-radius: 6px;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  border: 1px solid transparent;
+}
+.inferensys-card:hover {
+  background-color: var(--color-surface-hover);
 }
 
-@keyframes scanLine {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(1000%); }
+.inferensys-card-white {
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.animate-float {
-  animation: floatSlow 6s ease-in-out infinite;
-}
-
-.animate-float-reverse {
-  animation: floatReverse 7s ease-in-out infinite;
-}
-
-.animate-pulse-emerald {
-  animation: pulseEmerald 5s ease-in-out infinite;
-}
-
-/* Clausler Midnight Glass Card */
-.clausler-card {
-  background: rgba(15, 35, 56, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-  border-radius: 12px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.clausler-card:hover {
-  border-color: rgba(0, 193, 106, 0.35);
-  box-shadow: 0 12px 36px 0 rgba(0, 193, 106, 0.08);
-  transform: translateY(-2px);
-}
-
-/* Clausler Button Gradient */
-.btn-clausler-primary {
-  background-color: #00c16a;
-  color: #050c18;
-  font-weight: 700;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 20px rgba(0, 193, 106, 0.25);
-}
-.btn-clausler-primary:hover {
-  background-color: #00d977;
-  box-shadow: 0 0 28px rgba(0, 193, 106, 0.45);
-  transform: translateY(-1px);
-}
-
-/* Clausler Secondary Button */
-.btn-clausler-secondary {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #f8fafc;
-  font-weight: 600;
-  transition: all 0.2s ease;
-}
-.btn-clausler-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
-}
-
-/* Clausler Badge Pills */
-.clausler-pill {
+/* Inferensys Button Styles */
+.btn-inferensys-primary {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: var(--color-dark);
+  color: #ffffff;
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-primary:hover {
+  background-color: rgba(17, 17, 17, 0.88);
 }
 
-/* Clausler Document Highlighting Markers */
+.btn-inferensys-white {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ffffff;
+  color: var(--color-dark);
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-white:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+.btn-inferensys-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--color-dark);
+  height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid var(--color-border);
+  transition: background-color 0.2s ease;
+  text-decoration: none;
+}
+.btn-inferensys-secondary:hover {
+  background-color: var(--color-surface);
+}
+
+/* Document Highlighting Markers - Inferensys Architectural Palette */
 mark.clause-highlight {
   cursor: pointer;
-  padding: 2px 4px;
-  border-radius: 4px;
+  padding: 2px 5px;
+  border-radius: 3px;
   transition: all 0.15s ease-in-out;
   font-weight: 500;
 }
 
 mark.clause-critical {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  border-bottom: 2px solid #ef4444;
+  background-color: var(--risk-critical-bg);
+  color: var(--risk-critical-text);
+  border-bottom: 2px solid var(--risk-critical-border);
 }
 mark.clause-critical:hover, mark.clause-critical.active {
-  background-color: rgba(239, 68, 68, 0.35);
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.4);
+  background-color: #FED7CE;
+  box-shadow: 0 0 0 2px rgba(255, 90, 31, 0.25);
 }
 
 mark.clause-warning {
-  background-color: rgba(245, 158, 11, 0.2);
-  color: #fcd34d;
-  border-bottom: 2px solid #f59e0b;
+  background-color: var(--risk-warning-bg);
+  color: var(--risk-warning-text);
+  border-bottom: 2px solid var(--risk-warning-border);
 }
 mark.clause-warning:hover, mark.clause-warning.active {
-  background-color: rgba(245, 158, 11, 0.35);
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.4);
+  background-color: #FFE6BA;
+  box-shadow: 0 0 0 2px rgba(255, 176, 32, 0.25);
 }
 
 mark.clause-safe {
-  background-color: rgba(0, 193, 106, 0.2);
-  color: #86efac;
-  border-bottom: 2px solid #00c16a;
+  background-color: var(--risk-safe-bg);
+  color: var(--risk-safe-text);
+  border-bottom: 2px solid var(--risk-safe-border);
 }
 mark.clause-safe:hover, mark.clause-safe.active {
-  background-color: rgba(0, 193, 106, 0.35);
+  background-color: #DDE8FF;
+  box-shadow: 0 0 0 2px rgba(47, 107, 255, 0.25);
 }
 
-/* Scrollbar customization for dark sleek theme */
+/* 3x3 Risk Matrix Cell */
+.risk-matrix-cell {
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.risk-matrix-cell:hover {
+  transform: scale(1.05);
+}
+
+/* Accordion Animation */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease-out;
+}
+.accordion-content.open {
+  grid-template-rows: 1fr;
+}
+.accordion-inner {
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(9, 22, 40, 0.6);
+  background: #F5F4F0;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
+  background: #D4D1C8;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 193, 106, 0.5);
+  background: #111111;
+}
+
+/* Marquee for Partners / Tools */
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: 200%;
+  animation: marquee 35s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
